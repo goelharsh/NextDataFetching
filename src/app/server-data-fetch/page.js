@@ -2,6 +2,8 @@
 // next js use fetch api to fetch data 
 // so first of all make async components  
 
+import Link from "next/link";
+
 async function fetchListOfUsers() {
     try {
         // to prevent caching we can use no-store 
@@ -18,16 +20,18 @@ async function fetchListOfUsers() {
 
 export default async function ServerDataFetching(){
     const listOfUsers = await fetchListOfUsers();
-    console.log(listOfUsers);
+    // console.log(listOfUsers);
     return (
-        <>
-            <h1>Server side data fetching</h1>
+        <div className="p-10 ">
+            <h1>Server side data fetching: User List Pagae:</h1>
             <ul>
               {
-                  listOfUsers && listOfUsers.length > 0 ? listOfUsers.map(user => <li>{user.firstName}</li>) : null
+                  listOfUsers && listOfUsers.length > 0 ? listOfUsers.map(user => <li>
+                    <Link href={`server-data-fetch/${user.id}`}>{user.firstName}</Link>
+                  </li>) : null
               }
 
             </ul>
-        </>
+        </div>
     )
 }
